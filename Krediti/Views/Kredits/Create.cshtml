@@ -1,0 +1,395 @@
+﻿@model Krediti.Models.Aktivnosti
+
+@{
+    ViewBag.Title = "Create";
+    var color = "black";
+}
+
+
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            function showFirstTab() {
+                $("#tab1").show();
+                $("#tabStart").hide();
+            }
+            function dalje(event, skok = 0) {
+               
+                var str = event.target.parentNode.id;
+                //console.log("btn id is: " + str);
+                var tab = str.substring(0, 3);
+
+                if (str.length < 4) {
+                    var br = str.substring(3, 4);
+                } else {
+                    var br = str.substring(3, 5);
+                }
+
+                switch(skok) {
+                  case 0:
+                    br = Number(br) + 1;
+                    break;
+                    case -1:
+                        document.getElementById("btnCreate").disabled = false;
+                        msgSuccess();
+                    break;
+                  default:
+                    br = Number(br) + skok;
+                }
+
+                var revealId = tab + br;
+                //console.log("revealid je: " + revealId);
+                $('#'+revealId).show();
+            }
+        </script>
+    </head>
+@*<h2>Naslov istrazivanja</h2>*@
+
+<div class="container border border-light rounded shadow p-3 mb-5 bg-white">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div id="tabStart" class="col-md-10">
+            <h3>Идентификација</h3>
+            <table class="table">
+                <tr>
+                    <td>
+                        Унесите матични број предузећа
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.MBR, new { id = "someinput" })
+                        @Html.ValidationMessageFor(model => model.MBR, "", new { @class = "text-danger" })
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+                    <td>
+                        Списак предузећа
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.MBRID, Model.MBRData, "Изабери предузеће", new { @class = "form-control", id = "optlist" })
+                        @Html.ValidationMessageFor(model => model.MBRData, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+            </table>
+
+            <p>
+                @*@Html.ActionLink("Dalje", "Create", new { mbr = Model.MBR })*@
+                <input type="button" value="Dalje" onclick="showFirstTab()" class="btn btn-outline-secondary " /> @*"*@
+            </p>
+            </div>
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+
+                <div id="tab1" class="col-md-10">
+                    <h3>Планиране грађевинске активности</h3>
+                    <hr />
+                    <p><span class="hide">1. </span>Да ли имате уговор са Републиком Србијом чија је реализација планирана делом или у целости до краја текуће године? </p>
+
+
+                    @Html.RadioButtonFor(model => model.Pitanje1, "Da")
+                    @Html.Label("Да")<br>
+
+                    @Html.RadioButtonFor(model => model.Pitanje1, "Ne")
+                    @Html.Label("Не")
+
+                    @Html.ValidationMessageFor(model => model.Pitanje1, "", new { @class = "text-danger" })
+                </div>
+
+                <div id="tab2" class="col-md-10">
+                    @*<h4>Izvor kreditiranja</h4>*@
+                    <p><span class="hide">2. </span>Који је Пројекат у питању</p>
+
+                    @Html.RadioButtonFor(model => model.Pitanje2, "Ceo")
+                    @Html.Label("Пројекат у целини")<br>
+
+                    @Html.RadioButtonFor(model => model.Pitanje2, "Deo")
+                    @Html.Label("Део већег пројекта")
+
+                    @Html.ValidationMessageFor(model => model.Pitanje2, "", new { @class = "text-danger" })
+                </div>
+
+                <div id="tab3" class="col-md-10">
+                    <p><span class="hide">3. </span>Укратко опишите пројекат</p>
+
+                    @Html.EditorFor(model => model.Pitanje3, new { @class = "col-md-10" }) <br>
+
+                    @Html.ValidationMessageFor(model => model.Pitanje3, "", new { @class = "text-danger" })
+                    <input type="button" value="Dalje" onclick="dalje(event)" class="btn btn-outline-secondary " /> @*"*@
+                </div>
+
+                <div id="tab4" class="col-md-10">
+                    @*<h4>Krediti za održavanje i povećanje likvidnosti</h4>*@
+                    <p><span class="hide">4. </span>Да ли постоје препреке за реализацију планираних активности до краја текуће године (односи се на део посла или на посао у целости)? </p>
+
+                    @Html.RadioButtonFor(model => model.Pitanje4, "Da")
+                    @Html.Label("Да")<br>
+
+                    @Html.RadioButtonFor(model => model.Pitanje4, "Ne")
+                    @Html.Label("Не")
+
+                    @Html.ValidationMessageFor(model => model.Pitanje4, "", new { @class = "text-danger" })
+                </div>
+
+                <div id="tab5" class="col-md-10">
+                    <p><span class="hide">5. </span>Који су то проблеми и како их је могуће отклонити? </p>
+
+                    @Html.EditorFor(model => model.Pitanje5, new { @class = "col-md-10" }) <br>
+
+                    @Html.ValidationMessageFor(model => model.Pitanje5, "", new { @class = "text-danger" })
+                    <input type="button" value="Dalje" onclick="dalje(event)" class="btn btn-outline-secondary " /> @*"*@
+                </div>
+
+                <div id="tab6" class="col-md-10">
+                    <p><span class="hide">6. </span>Да ли имате потешкоће са извршењем финансијских обавеза од стране Републике Србије, као услова реализације посла предвиђеног до краја године?</p>
+
+                    @Html.RadioButtonFor(model => model.Pitanje6, "Da")
+                    @Html.Label("Да")<br>
+
+                    @Html.RadioButtonFor(model => model.Pitanje6, "Ne")
+                    @Html.Label("Не")
+
+                    @Html.ValidationMessageFor(model => model.Pitanje6, "", new { @class = "text-danger" })
+
+
+                </div>
+
+                <div id="tab7" class="col-md-10">
+                    <p><span class="hide">7. </span>Наведите потешкоће</p>
+
+                    @Html.EditorFor(model => model.Pitanje7, new { @class = "col-md-10" }) <br>
+
+                    @Html.ValidationMessageFor(model => model.Pitanje7, "", new { @class = "text-danger" })
+                    <input type="button" value="Dalje" onclick="dalje(event,-1)" class="btn btn-outline-secondary" /> @**@
+                </div>
+
+
+
+
+            </div>
+            <div class="form-group">
+                <div id="msgSuccess" class="border border-success text-success col-md-4" style="text-align: center; display: none;">
+                    <div class="" style="margin:10px 0">Успешно сте попунили упитник.</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input id="btnCreate" type="submit" title="Morate da popunite sva polja kako bi mogli da završite anketu." value="Сачувај" class="btn btn-outline-secondary" disabled /> @*disabled*@
+                </div>
+            </div>
+        </div>
+        }
+
+        @*<div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>*@
+    </div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+    <script>
+
+    var btnCreate = $("#btnCreate");
+
+
+        window.addEventListener("click", function (event) {
+
+            var element = document.getElementById(event.target.id);
+            //console.log(element);
+            //if (element !== null && element.tagName == "INPUT" && element.getAttribute("type") == "checkbox") {
+            //    //console.log(event.target.id);
+            //    var id = event.target.id;
+            //    var brPitanja = id.substring(0, 9);
+            //    //console.log(brPitanja);
+            //    var $eles = $(":input:checkbox[name^='" + brPitanja + "']");
+            //    var DOMeles = $eles.get();
+            //    //console.log(DOMeles);
+            //    var score = 0;
+            //    DOMeles.forEach(element => {
+            //        if (element.checked) {
+            //            score += 1;
+            //            //console.log(score);
+            //        }
+            //    });
+            //    if (score > 0) {
+            //        //console.log($("#" + event.target.id).siblings(":last"));
+            //        //$("#" + event.target.id).siblings(":last").prop("disabled", false);
+            //        $("#" + event.target.id).siblings(":last").removeClass("required");
+            //    } else {
+            //        $("#" + event.target.id).siblings(":last").addClass("required");
+            //    }
+            //}
+
+            
+
+
+
+            //if(event.target.t)
+            //switch (event.taraget.tagName)
+            //console.log(event.target.tagName);
+            //$("div[id^='tab']").hide();
+
+        });
+
+        function msgSuccess() {
+            if (btnCreate.prop("disabled") == true) {
+                $("#msgSuccess").hide();
+            } else {
+                $("#msgSuccess").show();
+            }
+        }
+
+        function displayRadioValue(ele) {
+            for (i = 0; i < ele.length; i++) {
+                if (ele[i].checked) {
+                    if (ele[i].value == "Da") {
+                        return ele[i].value;
+                    } else if (ele[i].value == "Ne1") {
+                        return ele[i].value;
+                    } else {
+                        return ele[i].value;
+                    }
+                }
+            }
+        }
+
+        $('input:radio[name="Pitanje1"]').change(function () {
+            var ele = document.getElementsByName("Pitanje1");
+            var value = displayRadioValue(ele);
+            if (value == "Da") {
+                $("#tab2, #tab3").show();
+                $("#tab4,#tab5,#tab6").hide();
+                btnCreate.prop("disabled", true);
+                msgSuccess();
+            } else {
+                $("#tab2, #tab3,#tab4,#tab5,#tab6").hide();
+                btnCreate.prop("disabled", false);
+                msgSuccess();
+            }
+        });
+
+
+
+        $('input:radio[name="Pitanje4"]').change(function () {
+            var ele = document.getElementsByName("Pitanje4");
+            var value = displayRadioValue(ele);
+            if (value == "Da") {
+                //console.log(value);
+                $("#tab5").show();
+                $("#tab6, #tab7").hide();
+            } else {
+                //console.log(value);
+                $("#tab6").show();
+                $("#tab5, #tab7").hide();
+            }
+        });
+
+    $('input:radio[name="Pitanje5"]').change(function () {
+            var ele = document.getElementsByName("Pitanje5");
+            var value = displayRadioValue(ele);
+            if (value == "Da") {
+                //console.log(value);
+                $("#tab7").show();
+                $("#tab6").hide();
+            } else {
+                //console.log(value);
+                $("#tab6").show();
+                $("#tab7").hide();
+            }
+        });
+
+        //$('input:radio[name="Pitanje6"]').change(function () {
+        //    var ele = document.getElementsByName("Pitanje6");
+        //    dalje(event);
+        //});
+
+        $('input:radio[name="Pitanje6"]').change(function () {
+            var ele = document.getElementsByName("Pitanje6");
+            var value = displayRadioValue(ele);
+            if (value == "Da") {
+                //console.log(value);
+                $("#tab7").show();
+                btnCreate.prop("disabled", true);
+                msgSuccess();
+            } else {
+                //console.log(value);
+                $("#tab7").hide();
+                btnCreate.prop("disabled", false);
+                msgSuccess();
+            }
+        });
+
+        //$('input:radio[name="Pitanje8"]').change(function () {
+        //    var ele = document.getElementsByName("Pitanje8");
+        //    var value = displayRadioValue(ele);
+        //    if (value == "Da") {
+        //        //console.log(value);
+        //        $("#tab10").show();
+        //        $("#tab9").hide();
+
+        //    } else {
+        //        //console.log(value);
+        //        $("#tab9").show();
+        //        $("#tab10").hide();
+        //    }
+        //});
+
+        //$('input:radio[name="Pitanje11"]').change(function () {
+        //    dalje(event);
+        //});
+
+        //$('input:radio[name="Pitanje12"]').change(function () {
+        //    var ele = document.getElementsByName("Pitanje12");
+        //    var value = displayRadioValue(ele);
+        //    if (value == "Da") {
+        //        //console.log(value);
+        //        $("#tab13").show();
+        //        $("#tab14").hide();
+
+        //    } else {
+        //        //console.log(value);
+        //        $("#tab14").show();
+        //        $("#tab13").hide();
+        //    }
+        //});
+
+    //    function keypressHandler(e)
+    //    {
+    //        if(e.which == 13) {
+    //            e.preventDefault(); //stops default action: submitting form
+    //            $(this).blur();
+                
+    //        }
+    //    }
+
+    //$('#myForm').keypress(keypressHandler);
+
+
+     $(function() {
+  var opts = $('#optlist option').map(function(){
+    return [[this.value, $(this).text()]];
+  });
+
+
+$('#someinput').keyup(function(){
+  var rxp = new RegExp($('#someinput').val(), 'i');
+  var optlist = $('#optlist').empty();
+  opts.each(function(){
+      if (rxp.test(this[0])) {
+          optlist.append($('<option/>').attr('value', this[0]).text(this[1]));
+      }
+  });
+      
+});
+      
+  });
+    </script>

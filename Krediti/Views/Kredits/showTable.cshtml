@@ -1,0 +1,188 @@
+﻿@model Krediti.Models.Kredits>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+
+
+    <table class="table">
+        <tr>
+            <th>
+                P1
+            </th>
+            <th>
+                P2_1
+            </th>
+            <th>
+                P2_2
+            </th>
+            <th>
+                P2_3
+            </th>
+            <th>
+                P3
+            </th>
+            <th>
+                P4
+            </th>
+            <th>
+                P5
+            </th>
+            <th>
+                P6
+            </th>
+            <th>
+                P7
+            </th>
+            <th>
+                P8
+            </th>
+            <th>
+                P9
+            </th>
+            <th>
+                P10_1
+            </th>
+            <th>
+                P10_2
+            </th>
+            <th>
+                P10_3
+            </th>
+            <th>
+                P10_4
+            </th>
+            <th>
+                P11
+            </th>
+            <th>
+                P12
+            </th>
+            <th>
+                P13_1
+            </th>
+            <th>
+                P13_2
+            </th>
+            <th>
+                P13_3
+            </th>
+            <th>
+                P13_4
+            </th>
+            <th>
+                P14
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje1)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje2_1)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje2_2)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje2_3)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje3)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje4)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje5)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje6)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje7)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje8)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje9)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje10_1)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje10_2)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje10_3)
+
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje10_4)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje11)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje12)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje13_1)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje13_2)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje13_3)
+
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje13_4)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pitanje14)
+
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        </td>
+    </tr>
+        }
+
+    </table>

@@ -1,0 +1,79 @@
+﻿@model Krediti.Models.Show
+
+@{
+    ViewBag.Title = "Идентификација";
+}
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+
+    <h3>Идентификација</h3>
+
+
+@*<table class="table">
+    <tr>
+        <td>
+            Унесите матични број предузећа
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.MBR, htmlAttributes: new { id = "someinput" })
+            @Html.ValidationMessageFor(model => model.MBR, "", new { @class = "text-danger" })
+            @{ var mbr = @Html.TextBoxFor(model => model.MBR, htmlAttributes: new
+                {
+                    id = "someinput" })}
+        </td>
+        
+    </tr>*@
+
+
+    @*<tr>
+        <td>
+            Списак предузећа
+        </td>
+        <td>
+            @Html.DropDownListFor(x => x.MBRID, Model.MBRDataList, "Изабери предузеће", new { @class = "form-control", id = "optlist" })
+            @Html.ValidationMessageFor(model => model.MBRDataList, "", new { @class = "text-danger" })
+            @*<input id="someinput"><br><select id="optlist" multiple="multiple">
+            <option value="0805">foo</option>
+            <option value="2002">bar</option>
+            <option value="2002">foobar</option>
+            <option value="15632">foobarbaz</option>
+        </select>*@*@
+        @*</td>
+
+
+    </tr>
+
+
+</table>*@
+@*<div class="col-md-offset-2 col-md-10">
+    @Html.ActionLink("Отворите упитник", "Create", "", new { mbr = mbr }, new { @class = "btn btn-outline-secondary" })
+
+</div>*@
+
+@*<input type="submit" value="Отворите упитник" class="btn btn-default" />*@
+   
+<p>
+    @Html.ActionLink("Dalje", "Create", new { mbr = Model.MBR})
+</p>
+
+<script>
+    $(function() {
+  var opts = $('#optlist option').map(function(){
+    return [[this.value, $(this).text()]];
+  });
+
+
+$('#someinput').keyup(function(){
+  var rxp = new RegExp($('#someinput').val(), 'i');
+  var optlist = $('#optlist').empty();
+  opts.each(function(){
+      if (rxp.test(this[0])) {
+          optlist.append($('<option/>').attr('value', this[0]).text(this[1]));
+      }
+  });
+      
+});
+      
+  });
+</script>
